@@ -8,7 +8,9 @@ def create_pure_phone(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     for phone in Flat.objects.all():
         parsed_phone = phonenumbers.parse(phone.owners_phonenumber, 'RU')
-        phone.owner_pure_phone = phonenumbers.format_number(parsed_phone, phonenumbers.PhoneNumberFormat.INTERNATIONAL)
+        pure_phone = phonenumbers.format_number(parsed_phone, phonenumbers.PhoneNumberFormat.INTERNATIONAL)
+        if phonenumbers.is_valid_number(parsed_phone):
+            phone.owner_pure_phone = pure_phone
         phone.save()
 
 
