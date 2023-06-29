@@ -69,3 +69,13 @@ class Complaint(models.Model):
 
     def __str__(self):
         return f'{self.complaining_user}: {self.complain_flat}  - {self.complaint_text}'
+
+
+class Owner(models.Model):
+    name = models.CharField('ФИО владельца', max_length=200)
+    phone = models.CharField('Номер владельца', max_length=20)
+    pure_phone = PhoneNumberField('Нормализованный номер владельца', blank=True)
+    flat = models.ManyToManyField(Flat, verbose_name='Квартиры в собственности', related_name="owners", blank=True)
+
+    def __str__(self):
+        return f'{self.name} - {self.flat}'
