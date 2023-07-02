@@ -7,8 +7,8 @@ def clone_owners(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
     Owner = apps.get_model('property', 'Owner')
     for owners in Flat.objects.all():
-        migrated_owner = Owner.objects.get_or_create(name=owners.owner, phone=owners.owners_phonenumber,
-                                                     pure_phone=owners.owner_pure_phone)
+        Owner.objects.get_or_create(name=owners.owner, phone=owners.owners_phonenumber,
+                                    pure_phone=owners.owner_pure_phone)
 
 
 class Migration(migrations.Migration):
