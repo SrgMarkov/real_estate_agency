@@ -6,7 +6,8 @@ import phonenumbers
 
 def create_pure_phone(apps, schema_editor):
     Flat = apps.get_model('property', 'Flat')
-    for phone in Flat.objects.all():
+    flats = Flat.objects.all()
+    for phone in flats.iterator():
         parsed_phone = phonenumbers.parse(phone.owners_phonenumber, 'RU')
         pure_phone = phonenumbers.format_number(parsed_phone, phonenumbers.PhoneNumberFormat.INTERNATIONAL)
         if phonenumbers.is_valid_number(parsed_phone):
